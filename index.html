@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Kariahuua - Digital Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- iOS-style navbar -->
+    <nav class="ios-navbar">
+        <div class="nav-left">
+            <i class="fab fa-apple"></i>
+            <span>Mark Kariahuua</span>
+            <span class="nav-item">File</span>
+            <span class="nav-item">Edit</span>
+            <span class="nav-item">View</span>
+            <span class="nav-item">Go</span>
+            <span class="nav-item">Window</span>
+            <span class="nav-item">Help</span>
+        </div>
+        <div class="nav-right">
+            <i class="fas fa-volume-up"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+            <span id="clock"></span>
+        </div>
+    </nav>
+
+    <!-- Desktop Container -->
+    <div class="desktop-container">
+        <!-- Folders -->
+        <div class="folder" data-folder="about">
+            <i class="fas fa-folder"></i>
+            <span>About</span>
+        </div>
+        <div class="folder" data-folder="brand">
+            <i class="fas fa-folder"></i>
+            <span>Brand Strategy</span>
+        </div>
+        <div class="folder" data-folder="comedy">
+            <i class="fas fa-folder"></i>
+            <span>Comedy</span>
+        </div>
+        <div class="folder" data-folder="filmography">
+            <i class="fas fa-folder"></i>
+            <span>Filmography</span>
+        </div>
+        <div class="folder" data-folder="voiceover">
+            <i class="fas fa-folder"></i>
+            <span>Voice Over</span>
+        </div>
+        <div class="folder" data-folder="campaigns">
+            <i class="fas fa-folder"></i>
+            <span>Campaigns</span>
+        </div>
+    </div>
+
+    <!-- iOS Dock -->
+    <div class="ios-dock">
+        <div class="dock-icon" id="finder">
+            <i class="fas fa-compass"></i>
+        </div>
+        <div class="dock-icon" id="mail">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="dock-icon" id="safari">
+            <i class="fas fa-safari"></i>
+        </div>
+        <div class="dock-icon" id="music">
+            <i class="fas fa-music"></i>
+        </div>
+        <div class="dock-icon" id="photos">
+            <i class="fas fa-image"></i>
+        </div>
+        <div class="dock-icon" id="contacts">
+            <i class="fas fa-address-book"></i>
+        </div>
+    </div>
+
+    <!-- Folder Content Modal -->
+    <div id="folderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="window-controls">
+                    <span class="close-btn">×</span>
+                    <span class="minimize-btn">-</span>
+                    <span class="maximize-btn">+</span>
+                </div>
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chatbot-window" style="display: none;">
+            <div class="chatbot-header">
+                <h3>Chat with Mark's Assistant</h3>
+                <span class="close-chat">×</span>
+            </div>
+            <div class="chatbot-messages"></div>
+            <div class="chatbot-input">
+                <input type="text" placeholder="Type your message...">
+                <button><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adding draggable library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
