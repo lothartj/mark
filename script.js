@@ -143,7 +143,6 @@ $(document).ready(function() {
         handle: ".modal-header",
         containment: "document",
         start: function(event, ui) {
-            // Only allow dragging if not maximized
             if (isMaximized) {
                 return false;
             }
@@ -161,10 +160,11 @@ $(document).ready(function() {
         }
     });
 
-    // Make chatbot window draggable
-    $(".chatbot-window").draggable({
-        handle: ".chatbot-header",
-        containment: "window"
+    // Ensure modal is initially centered
+    $('.modal').css({
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
     });
 
     // Window controls functionality
@@ -201,10 +201,10 @@ $(document).ready(function() {
             isMaximized = true;
             modal.addClass('maximized').css({
                 'position': 'fixed',
-                'top': '24px', // Account for navbar
+                'top': '24px', 
                 'left': '0',
                 'width': '100%',
-                'height': 'calc(100% - 24px)', // Account for navbar
+                'height': 'calc(100% - 24px)',
                 'border-radius': '0',
                 'transform': 'none',
                 'z-index': '9999'
@@ -314,7 +314,6 @@ document.querySelectorAll('.folder').forEach(folder => {
         modalTitle.textContent = folder.querySelector('span').textContent;
         modalBody.innerHTML = folderContent[folderType];
         
-        // If there's already a modal open, use its position
         if (modal.style.display === 'none' || !modal.style.display) {
             // First open - center it
             modal.style.transform = 'translate(-50%, -50%)';
@@ -328,7 +327,6 @@ document.querySelectorAll('.folder').forEach(folder => {
             modal.style.top = lastModalPosition.y;
             modal.style.left = lastModalPosition.x;
         }
-        // If maximized, keep the maximized state
         
         modal.style.display = 'block';
     });
@@ -344,14 +342,47 @@ const closeChat = document.querySelector('.close-chat');
 
 // Toggle chatbot
 chatbotToggle.addEventListener('click', () => {
-    chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
-    if (chatbotWindow.style.display === 'flex' && chatMessages.children.length === 0) {
-        addBotMessage(chatbotResponses.greeting[Math.floor(Math.random() * chatbotResponses.greeting.length)]);
+    if (chatbotWindow.style.display === 'none' || !chatbotWindow.style.display) {
+        chatbotWindow.style.display = 'flex';
+        if (chatMessages.children.length === 0) {
+            addBotMessage(chatbotResponses.greeting[Math.floor(Math.random() * chatbotResponses.greeting.length)]);
+        }
+    } else {
+        chatbotWindow.style.display = 'none';
     }
 });
 
 closeChat.addEventListener('click', () => {
     chatbotWindow.style.display = 'none';
+});
+
+// Make chatbot window draggable on desktop only
+if (window.innerWidth > 768) {
+    $(".chatbot-window").draggable({
+        handle: ".chatbot-header",
+        containment: "window"
+    });
+}
+
+// Check for window resize to handle chat responsiveness
+window.addEventListener('resize', function() {
+    if (window.innerWidth <= 768) {
+        // Disable draggable on mobile
+        if ($(".chatbot-window").hasClass('ui-draggable')) {
+            $(".chatbot-window").draggable("destroy");
+        }
+        // Reset position for mobile
+        chatbotWindow.style.removeProperty('top');
+        chatbotWindow.style.removeProperty('left');
+    } else {
+        // Enable draggable on desktop
+        if (!$(".chatbot-window").hasClass('ui-draggable')) {
+            $(".chatbot-window").draggable({
+                handle: ".chatbot-header",
+                containment: "window"
+            });
+        }
+    }
 });
 
 // Send message
